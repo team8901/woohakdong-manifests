@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: woohakdong-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "external" 
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-northeast-2:442426891899:certificate/5163332d-e5b6-4847-9d5d-1a6c69bd0952"  
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "HTTP"  
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"  
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+  labels:
+    app: woohakdong
+spec:
+  selector:
+    app: woohakdong-spring
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+    - name: https
+      port: 443
+      targetPort: 8080
+  type: LoadBalancer

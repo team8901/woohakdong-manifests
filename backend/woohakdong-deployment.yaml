@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: woohakdong-spring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: woohakdong-spring
+  template:
+    metadata:
+      labels:
+        app: woohakdong-spring
+    spec:
+      containers:
+        - name: woohakdong-spring
+          image: 442426891899.dkr.ecr.ap-northeast-2.amazonaws.com/woohakdong/server-dev:0f744d6-amd64
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: NH_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: NH_ACCESS_TOKEN
+            - name: NH_ISCD
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: NH_ISCD
+            - name: PORTONE_REST_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: PORTONE_REST_API_KEY
+            - name: PORTONE_REST_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: PORTONE_REST_API_SECRET
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: SENTRY_DSN
+            - name: PROD_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: PROD_DB_URL
+            - name: PROD_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: PROD_DB_USERNAME
+            - name: PROD_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: PROD_DB_PASSWORD
+            - name: AWS_S3_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: woohakdong-secrets
+                  key: AWS_S3_BUCKET_NAME
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1"
