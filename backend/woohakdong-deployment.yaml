@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: woohakdong-spring
-          image: 442426891899.dkr.ecr.ap-northeast-2.amazonaws.com/woohakdong/server-dev:prod-
+          image: 442426891899.dkr.ecr.ap-northeast-2.amazonaws.com/woohakdong/server-dev:prod-a50fda5
           ports:
             - containerPort: 8080
           env:
