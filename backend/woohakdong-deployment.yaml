@@ -77,8 +77,8 @@ spec:
                   key: AWS_S3_BUCKET_NAME
           resources:
             requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
               memory: "512Mi"
               cpu: "500m"
-            limits:
-              memory: "1024Mi"
-              cpu: "1"
